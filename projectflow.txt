@@ -1,0 +1,34 @@
+Building Pipeline:
+1. Create a GitHub repo and clone it in local (Add experiments).
+2. Add src folder along with all components (run them individually).
+3. Add data, models, reports directories to .gitignore file
+4. Now git add, commit, push
+
+Setting up dvc pipeline (without params)
+5. Create new dvc.yaml file and add stages to it.
+6. Dvc init then bind dvc repro to test the pipeline automation. (check dvc dag)
+7. Now git add, commit, push
+
+Setting up dvc pipeline (with params)
+8. Add params.yaml file
+9. Add the params setup (mentioned below)
+10. Do “dvc repro” again to test the pipeline along with the params
+11. Now git add, commit, push
+
+Experiments with DVC:
+1> pip install dvc[live]
+2> Add the dvclive code block (mentioned below)
+3> Add “dvc exp run” it will create a new dvc.yaml (if already not there) and dvclive directory (each run will be considered as an experiment by DVC)
+4> Do “dvc exp show” on terminal to see the experiments or use extension on VSCode (install dvc extension)
+5> Do “dvc exp remove {exp-name}” to remove exp (optional) | “dvc exp apply {exp-name}” to reproduce prev exp
+6> Change params, re-run code (produce new experiments)
+7> Now git add, commit, push
+
+Adding a remote S3 storage to DVC:
+1> Login to AWS console
+2> Create an IAM user (straight forward process)
+3> Create S3 (enter unique name and create)
+4> pip install awscli
+5> aws configure
+6> dvc remote add -d dvcstore s3://bucketname
+7> dvc push -u to store the data you want to keep
