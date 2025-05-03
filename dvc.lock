@@ -5,8 +5,11 @@ stages:
     deps:
     - path: src/data_ingestion.py
       hash: md5
-      md5: 0d58d65af83a14e31889f01d6d5b2ab0
-      size: 3645
+      md5: 4c82b2dd2d301c97fcb0c782b81b3d83
+      size: 3643
+    params:
+      params.yaml:
+        data_ingestion.test_size: 0.21
     outs:
     - path: data/raw
       hash: md5
@@ -41,38 +44,42 @@ stages:
       nfiles: 2
     - path: src/feature_engineering.py
       hash: md5
-      md5: 125fabf655aaed1957039b1b1ee8ac54
-      size: 3912
+      md5: cf8448c21ab5f64a81b288de0c331814
+      size: 3910
     outs:
     - path: data/processed
       hash: md5
-      md5: 8055a0ba6e072d7f85c11cbd4e6591f1.dir
-      size: 1180748
+      md5: 9d01aabf0dee662d17274eba265eec5b.dir
+      size: 1066515
       nfiles: 2
   model_building:
     cmd: python src/model_building.py
     deps:
     - path: data/processed
       hash: md5
-      md5: 8055a0ba6e072d7f85c11cbd4e6591f1.dir
-      size: 1180748
+      md5: 9d01aabf0dee662d17274eba265eec5b.dir
+      size: 1066515
       nfiles: 2
     - path: src/model_building.py
       hash: md5
-      md5: bed4518939232a9e04b3f112ae3a9902
-      size: 4419
+      md5: c503b110a0f3b1568a56d86eedef76f4
+      size: 4484
+    params:
+      params.yaml:
+        model_building.n_estimators: 23
+        model_building.random_state: 2
     outs:
     - path: models/model.pkl
       hash: md5
-      md5: a869dc2ce9b751ccdc18f24c1b9d638a
-      size: 970135
+      md5: 87b3f546e4a6a5957e0bf3d78360a0a7
+      size: 869192
   model_evaluation:
     cmd: python src/model_evaluation.py
     deps:
     - path: models/model.pkl
       hash: md5
-      md5: a869dc2ce9b751ccdc18f24c1b9d638a
-      size: 970135
+      md5: 87b3f546e4a6a5957e0bf3d78360a0a7
+      size: 869192
     - path: src/model_evaluation.py
       hash: md5
       md5: 094c98f06e5b766081b43595481e4018
@@ -80,5 +87,5 @@ stages:
     outs:
     - path: reports/metrics.json
       hash: md5
-      md5: c92fb047cdadbbc0aefcfede4b916c62
+      md5: 8e2f192b1fa6caa31791d9d28a00ad6d
       size: 133
