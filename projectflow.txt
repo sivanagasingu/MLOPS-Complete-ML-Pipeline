@@ -31,7 +31,8 @@ Adding a remote S3 storage to DVC:
 4> pip install awscli
 5> aws configure
 6> dvc remote add -d dvcstore s3://bucketname
-7> dvc push -u to store the data you want to keep
+7> dvc commit -push the exp outcome that you want to keep
+8> Finally git add, commit, push
 
 
 
